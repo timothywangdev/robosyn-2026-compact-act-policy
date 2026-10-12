@@ -2,7 +2,7 @@
 
 This repository contains the selected `distill_visual` policy and its all-ten-task deployment interface. A learned mapper uses the current feature maps from the same ACT image-backbone pass, plus current joint positions, to condition a shared recurrent correction of both arms and grippers. Each refill generates and enqueues 50 commands. The policy uses three official cameras, preserves complete-hand ACT fallback, and makes no external inference calls. Qwen is used offline for training targets and is absent from the deployed model.
 
-**Release status:** public code and all ten checkpoint paths are available at the pinned revision below. The fresh installed short-root package completed all ten official native task evaluations, one episode per task, scoring 4/10. Protected confirmation remains 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; no statistical benchmark superiority is claimed. Clean CPython 3.11 offline installation, all-ten-task CPU loader/API checks and the short-root Bell runtime smoke passed. Earlier deep-path scene-initialization failures were unavailable pre-policy episodes and remain separate. The fresh result is an integration screen with one case per task, not the organizer's 100-case benchmark. The selected policy comparison includes Drawer conversion, terminal handling and callback cadence as well as learned corrections. The new predeclared gen28+gen29 60-pair confirmation remains pending and is not pooled with the failed protected confirmation.
+**Release status:** public code and all ten checkpoint paths are available at the pinned revision below. The fresh installed short-root package completed all ten official native task evaluations, one episode per task, scoring 4/10. Protected confirmation remains 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; no statistical benchmark superiority is claimed. Clean CPython 3.11 offline installation, all-ten-task CPU loader/API checks and the short-root Bell runtime smoke passed. Earlier deep-path scene-initialization failures were unavailable pre-policy episodes and remain separate. The fresh result is an integration screen with one case per task, not the organizer's 100-case benchmark. The selected policy comparison includes Drawer conversion, terminal handling and callback cadence as well as learned corrections. The new predeclared gen28+gen29 60-pair confirmation completed at 31/60 compact versus 28/60 plain ACT50, with 10 compact-only wins and 7 control-only wins, net 3, one-sided exact McNemar p = 0.314529418945. The fixed net >= 6 and p <= 0.10 criterion was FAILED. This bounded-cohort result is separate from the earlier failed gen27 confirmation and does not establish organizer leaderboard superiority.
 
 ## Fresh installed all-ten-task integration screen
 
@@ -26,6 +26,29 @@ Fresh score: **4/10**. Earlier selected compact50: **6/10**; plain ACT50: **3/10
 Basket regression is preserved: the earlier compact rollout succeeds at 331 actions; the fresh rollout times out at 500. Saved frames show both bringing the bottle into the basket, then the fresh rollout carrying it back out during withdrawal and leaving it on the table. Initial camera buffers and the first seven command hashes differ; the opening/contact trajectory was not saved. Both use eager correction. The precise cause remains unproved, and this case is not relabeled as an unavailable episode.
 
 Water pouring also regresses from the earlier compact result of 1/1 to a fresh result of 0/1 at the full 500-action timeout. These two observed regressions reduce the fresh screen from the earlier 6/10 to 4/10. A specific cause for Water's change has not been established. The earlier plain ACT50 score of 3/10 is retained as reference, not a new contemporaneous baseline evaluation or proof of a public benchmark gain.
+
+## New fixed paired confirmation (60 cases)
+
+The new predeclared gen28+gen29 60-pair confirmation completed at 31/60 compact versus 28/60 plain ACT50, with 10 compact-only wins and 7 control-only wins, net 3, one-sided exact McNemar p = 0.314529418945. The fixed net >= 6 and p <= 0.10 criterion was FAILED. This bounded-cohort result is separate from the earlier failed gen27 confirmation and does not establish organizer leaderboard superiority.
+
+Two prospectively fixed disjoint generator streams (2026102801 and 2026102901) each contain three accepted episodes per task and actor. Each task therefore contributes six matched protocol cases and twelve episodes in total. All original native/evaluator waits were successful and naturally drained; missing episodes are not imputed. Accepted scene metadata match within each pair; exact hidden initial physical state equality is not proved. These are evaluations in the previously qualified experiment environment, separate from the fresh installed-package 4/10 integration screen.
+
+| Task | gen28 compact / ACT | gen29 compact / ACT | Combined compact / ACT |
+|---|---:|---:|---:|
+| `table_rearrangement` | 3/3 / 3/3 | 3/3 / 3/3 | 6/6 / 6/6 |
+| `click_bell` | 3/3 / 3/3 | 3/3 / 1/3 | 6/6 / 4/6 |
+| `water_pouring` | 2/3 / 2/3 | 0/3 / 1/3 | 2/6 / 3/6 |
+| `handle_basket` | 2/3 / 1/3 | 2/3 / 0/3 | 4/6 / 1/6 |
+| `items_handover` | 0/3 / 0/3 | 0/3 / 0/3 | 0/6 / 0/6 |
+| `drawer_open_place` | 3/3 / 2/3 | 1/3 / 0/3 | 4/6 / 2/6 |
+| `mixer_operating` | 2/3 / 2/3 | 3/3 / 3/3 | 5/6 / 5/6 |
+| `item_assembly` | 0/3 / 3/3 | 0/3 / 2/3 | 0/6 / 5/6 |
+| `manipulate_pipette` | 2/3 / 1/3 | 2/3 / 1/3 | 4/6 / 2/6 |
+| `sample_loading` | 0/3 / 0/3 | 0/3 / 0/3 | 0/6 / 0/6 |
+
+The criterion was fixed before these outcomes: at least six net additional successes out of 60 pairs and one-sided exact McNemar p <= 0.10. The stricter p <= 0.05 result is not supported. The earlier gen27 result remains 17/30 versus 13/30, p=.109375, failed; it is not pooled here. The fresh installed short-root screen remains 4/10, including the Basket and Water regressions.
+
+The candidate, runtime and HF revision are unchanged. Both actors generate/execute 50-command trajectories; the compact SDK callback is 50 commands and the plain ACT control uses --act_step10. The contrast includes learned correction, Drawer conversion, terminal handling and callback semantics; it is not a learned-correction-only or foundation-contribution ablation.
 
 ## Deployed architecture
 
