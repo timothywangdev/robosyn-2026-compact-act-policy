@@ -1,0 +1,10 @@
+{
+  "schema": "selected_Student50_code_release_v1",
+  "HF_repository": "0x00ff00ff/robosyn-2026-compact-act-policy",
+  "required_manifest_SHA256": "191e3a69625175b96c685304e19d5362522e16338943cd6c3065448cabb89515",
+  "generated": 50,
+  "executed": 50,
+  "selected_candidate": "distill_visual",
+  "publication_status": "code_only_checkpoints_and_quality_pending",
+  "all10_supported": true
+}
