@@ -2,7 +2,7 @@
 
 This is a separate adaptive candidate. For `item_assembly`, it uses the exact pinned released official ACT checkpoint directly, with its raw 50-command FIFO and a ten-command SDK callback. It constructs no visual student or recurrent correction for that task, applies no action transformation, and delegates evaluation and reset to the original official ACT hooks. The other nine tasks retain the same trained current-feature visual student, shared coupled motor, task ACT checkpoints and per-hand fallback as the earlier release. Qwen remains an offline teacher; no language/subtask planner or external inference service runs at deployment.
 
-**Candidate validation status: PENDING.** This local source/documentation candidate has not been published or submitted. The separate gen30 Assembly test is planned as two three-episode invocations: plain official ACT versus this Assembly ACT-only route. Both branches use the same ACT weights, so it can test integration and accepted-case control agreement, not learned-correction efficacy, all-ten success improvement, or statistical superiority. A fresh all-ten candidate integration campaign and its genuine terminal proofs remain pending. The immutable HF package and all ten checkpoint URLs remain at revision `a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8`.
+**Candidate integration status: COMPLETE — 3/10 successes.** All ten new gen31 episodes have genuine native/evaluator exits zero and natural recorded drains, one episode per task at its official full horizon. This confirms the changed adapter runs across all ten tasks; a ten-case screen does not establish organizer leaderboard performance, statistical superiority, or architectural novelty. The separate gen30 Assembly integration test completed six episodes (three per route): candidate 2/3 versus plain ACT 2/3. All three accepted scene/protocol pairs aligned. Both branches use the same released ACT weights, so this tests integration/control agreement, not learned correction efficacy or all-ten superiority. The all-ten immutable HF checkpoints remain at revision `a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8`. Publication and submission are separate ROOT actions.
 
 The Assembly route was chosen after observing the original candidate's Assembly result during fixed cohort28. This is an adaptive task-specific change, not the originally preregistered all-task policy. The original fixed gen28+gen29 60-pair outcomes remain attributed to the unchanged original student policy and must never be relabeled or pooled as results of this fallback candidate. The previous protected gen27 result remains 17/30 versus 13/30, p=.109375, FAILED at the preset .10 threshold. The earlier fresh installed screen remains 4/10 for the original policy, including Basket and Water regressions; it is reference evidence, not a measured score of this changed candidate.
 
@@ -10,8 +10,8 @@ The Assembly route was chosen after observing the original candidate's Assembly 
 
 | Tasks | Model path | Queue and callback | Candidate validation |
 |---|---|---|---|
-| `item_assembly` | Pinned released official ACT only; exact raw native channels; student and correction bypassed | Generated/executed FIFO50, callback10 | gen30 integration/control agreement and fresh candidate all10 pending |
-| Other nine official tasks | Original frozen task ACT + trained visual student + coupled residual/reliability tail | Generated/executed50, model callback50 | Source delegation preserved; fresh candidate all10 pending |
+| `item_assembly` | Pinned released official ACT only; exact raw native channels; student and correction bypassed | Generated/executed FIFO50, callback10 | Fresh gen31 native complete; gen30 all6 complete |
+| Other nine official tasks | Original frozen task ACT + trained visual student + coupled residual/reliability tail | Generated/executed50, model callback50 | Source delegation preserved; fresh gen31 native complete |
 
 The routing reads only the declared task identifier. It never selects a branch using scene seed, outcome, hidden state, confidence, future observations, or a demonstration phase. The immutable original Assembly student template is verified as provenance without changing its registered mode or admission. A new raw ACT model is then constructed from its exact checkpoint/config.
 
@@ -24,6 +24,29 @@ flowchart TD
     A --> E["Unchanged official evaluator"]
     Q --> E
 ```
+
+## Fresh all-ten screen of this changed candidate
+
+**Candidate integration status: COMPLETE — 3/10 successes.** All ten new gen31 episodes have genuine native/evaluator exits zero and natural recorded drains, one episode per task at its official full horizon. This confirms the changed adapter runs across all ten tasks; a ten-case screen does not establish organizer leaderboard performance, statistical superiority, or architectural novelty. The separate gen30 Assembly integration test completed six episodes (three per route): candidate 2/3 versus plain ACT 2/3. All three accepted scene/protocol pairs aligned. Both branches use the same released ACT weights, so this tests integration/control agreement, not learned correction efficacy or all-ten superiority. The all-ten immutable HF checkpoints remain at revision `a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8`. Publication and submission are separate ROOT actions.
+
+Generator2026103101, motor17, one episode per task, generated/executed50. Assembly uses raw official ACT and callback10; the other nine tasks keep the original student and coupled correction with callback50. This is a new adaptive task-routing candidate. None of the earlier original-policy scores are assigned to it. No new contemporaneous all-ten baseline was run. Accepted seed identity does not prove bitwise equality of initial RGB or hidden physical states.
+
+| Task | Candidate success | Actual episodes | Action steps / official horizon | Motor seed | SDK callback |
+|---|---:|---:|---:|---:|---:|
+| `table_rearrangement` | 1/1 | 1 | 127 / 361 | 17 | 50 |
+| `click_bell` | 0/1 | 1 | 361 / 361 | 17 | 50 |
+| `water_pouring` | 0/1 | 1 | 500 / 500 | 17 | 50 |
+| `handle_basket` | 0/1 | 1 | 500 / 500 | 17 | 50 |
+| `items_handover` | 0/1 | 1 | 350 / 350 | 17 | 50 |
+| `drawer_open_place` | 0/1 | 1 | 900 / 900 | 17 | 50 |
+| `mixer_operating` | 1/1 | 1 | 246 / 500 | 17 | 50 |
+| `item_assembly` | 0/1 | 1 | 500 / 500 | 17 | 10 |
+| `manipulate_pipette` | 1/1 | 1 | 238 / 1000 | 17 | 50 |
+| `sample_loading` | 0/1 | 1 | 500 / 500 | 17 | 50 |
+
+## Original method: fixed sixty-pair reference only
+
+The unchanged original student method completed the fixed gen28+gen29 cohort at 31/60 versus 28/60 plain ACT, 10 student-only wins and 7 ACT-only wins, one-sided exact McNemar p=0.314529418945. Its predeclared net>=6 and p<=.10 criterion FAILED. These 120 episodes were generated by the original method, before this adaptive Assembly route. They are not this candidate's results, are not pooled with gen30/gen31, and do not validate its task-specific change. The separate gen27 result remains17/30 versus13/30, p=.109375, FAILED; the original fresh installed screen remains4/10 with Basket and Water regressions.
 
 ## Earlier original-policy evidence (not this candidate)
 
@@ -113,7 +136,7 @@ bash policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh \
 
 Setup downloads the SHA-bound immutable package. Forty-five archived Git-LFS pointer-text fixtures are transported as pinned base64 JSON and restored to their exact original bytes before verification; no pointed-to datasets or test artifacts are downloaded. It then uses the pinned offline CPython 3.11 install recipe. It verifies every file, creates `<installation-root>/.venvs/sim`, and validates the installed versions. It then installs two relocatable source-pinned routing files (1254 bytes) so the archived official nested task modules resolve in a fresh interpreter, and imports all ten tasks without creating worlds or models. `PYTHON311` may select the installed CPython 3.11 executable. A failed/incomplete existing installation must be inspected before another install; setup never substitutes a different dependency lock.
 
-Keep the installation root short and ordinary: do not replace it with a symlink into a deep checkout. The simulator loads task assets and native libraries from installed absolute paths. CPU configuration and module checks passed for a complete byte-identical package and environment under a short root. The original policy completed its Bell rollout and all-ten fresh native screen described above. That integration evidence is reference only for the changed Assembly-fallback candidate; its own complete native proofs remain pending. `/tmp` may be cleared by a reboot, so a persistent short root such as `/opt/rscp-policy` is also suitable when writable.
+Keep the installation root short and ordinary: do not replace it with a symlink into a deep checkout. The simulator loads task assets and native libraries from installed absolute paths. CPU configuration and module checks passed for a complete byte-identical package and environment under a short root. The original policy completed its Bell rollout and all-ten fresh native screen described above. That integration evidence is reference only for the changed Assembly-fallback candidate; its separate gen31 native proofs are complete as described above. `/tmp` may be cleared by a reboot, so a persistent short root such as `/opt/rscp-policy` is also suitable when writable.
 
 For each new evaluation, pass the organizer's generator seed, episode count and a fresh output directory. A local metadata binder derives the installed paths automatically after full byte verification. It requires no team token, root session, or manual approval. The team token is used only in the official submission portal. The actor and action code remain unchanged. Byte verification adds constructor startup time; it is outside steady inference.
 
@@ -121,7 +144,7 @@ The shell invokes the exact submitted `deploy_policy.yml` through the unchanged 
 
 ## Checkpoints and all-ten-task commands
 
-The nine student-routed tasks share `models/current-student/distill_visual.pt` and `models/frozen-coupled-role/coupled-all14.safetensors`. Assembly loads only its released ACT checkpoint; it does not instantiate these two shared models. Every task loads the same released ACT checkpoint files as the prior artifact. The full machine-readable mapping is in [task-checkpoints.json](task-checkpoints.json). The selected artifact manifest SHA256 is `191e3a69625175b96c685304e19d5362522e16338943cd6c3065448cabb89515`.
+The nine student-routed tasks share `models/current-student/distill_visual.pt` and `models/frozen-coupled-role/coupled-all14.safetensors`. Assembly loads only its released ACT checkpoint; it does not instantiate these two shared models. Every task loads the same released ACT checkpoint files as the prior artifact. The immutable checkpoint paths and horizons are in [task-checkpoints.json](task-checkpoints.json). Its historical `run_command` entries refer to the earlier adapter; this changed candidate must use the new Assembly-fallback commands shown below. The selected artifact manifest SHA256 is `191e3a69625175b96c685304e19d5362522e16338943cd6c3065448cabb89515`.
 
 | Task | ACT checkpoint at pinned HF revision | Horizon | Run command (organizer supplies seed/count) |
 |---|---|---:|---|
