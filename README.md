@@ -4,6 +4,42 @@ This repository contains the selected `distill_visual` policy and its all-ten-ta
 
 **Release status:** public code is prepared; the checkpoint repository has been uploaded with exact byte verification; public availability is being checked. Protected confirmation completed at 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; this is disclosed as limited evidence; no statistical benchmark superiority is claimed. The installed-package native test remains pending; the verified fresh-environment task import-route overlay is included in setup. Clean CPython 3.11 offline installation and all-ten-task CPU loader/API checks passed. A ten-case development screen scored 6/10 against 3/10 for the plain official ACT50 control; that small screen does not establish a leaderboard improvement. The comparison includes the selected policy's Drawer conversion and terminal handling, as well as learned corrections.
 
+## Deployed architecture
+
+The deployed model is a **goal-conditioned ACT residual policy**. It predicts a compact continuous role/goal representation from the current observations and uses that representation to correct the ACT action trajectory. It has no text-generating planner, discrete subtask planner, or online Qwen call. The official task identifier selects its released ACT checkpoint, and the supplied instruction is validated against that task. ACT itself does not become language-conditioned through this wrapper.
+
+```mermaid
+flowchart TD
+    O["Current three RGB cameras + measured qpos14"] --> A["Frozen task ACT<br/>one image-backbone forward"]
+    A --> B["Parent action trajectory<br/>50 × 14 native channels"]
+    A --> F["Same-forward spatial camera maps<br/>3 × 512 × 2 × 3"]
+    F --> S["Trained visual student<br/>MLP256 · 2,392,434 parameters"]
+    O -->|normalized qpos14| S
+    S --> R["Projected roles96 + predicted goal delta18"]
+    O --> K["Current qpos14 + FK pose features18"]
+    R --> C["Shared GRU64 correction<br/>50 synchronized arm/gripper residuals"]
+    K --> C
+    B --> C
+    C --> G["Learned reliability + arm limits<br/>per-hand acceptance"]
+    B --> G
+    G --> Q["50-command queue<br/>accepted correction or original complete hand"]
+    Q --> E["Official simulator<br/>10 commands per callback"]
+    T["Offline Qwen + learned-goal teacher targets"] -. training only .-> S
+```
+
+The student flattens the three normalized spatial feature maps and concatenates measured joint state. Its two heads predict 96 projected role values and an 18-value normalized goal delta. The recurrent motor also receives current forward-kinematics features and the parent ACT trajectory. It generates residuals for all 14 channels: six arm joints and one gripper per hand. Arm residuals use radians; gripper residuals use physical opening metres before the task-specific inverse conversion. A rejected hand retains all seven original native ACT channels exactly; accepting the two hands separately can produce mixed acceptance and does not establish improved bimanual coordination.
+
+| Component | Training and deployment status | Runtime role |
+|---|---|---|
+| Ten task ACT checkpoints and image backbone | Released checkpoints; frozen in our adaptation | Current visual features and parent 50-command trajectory |
+| Visual student: 2,392,434 parameters | Trained on competition FIT current-observation features and offline teacher targets | Predicts roles96 and goal delta18 from the same ACT backbone pass and qpos14 |
+| Shared coupled motor checkpoint: 180,528 parameters | Trained earlier on competition FIT arm/gripper trajectories; frozen while fitting the selected visual student | GRU64 trajectory correction and learned per-hand reliability |
+| Active projected-input motor tail: 49,424 parameters | Subset of the stored motor checkpoint | Actual recurrent/action/reliability path used at deployment |
+| Teacher-role projection: 131,104 parameters | Stored in that checkpoint; bypassed by the projected-input runtime | Not executed by this release |
+| Qwen foundation observer and goal targets | Used offline during target construction; absent from the deployed payload | No inference-time calls or model allocation |
+
+There is no second image-backbone pass, no future observation, and no hidden simulator state in the deployed interface. These trained components provide a concrete architecture change; the measured 17/30 versus 13/30 comparison does not by itself prove architectural novelty, a foundation-model contribution, or statistical benchmark superiority. The frozen selected release is distinct from later joint-training experiments.
+
 ## Required files and environment
 
 The organizer-facing adapter is `policy/compact_current_ACT_student50_release_v1/`:
