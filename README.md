@@ -2,7 +2,7 @@
 
 This repository contains the selected `distill_visual` policy and its all-ten-task deployment interface. A learned mapper uses the current feature maps from the same ACT image-backbone pass, plus current joint positions, to condition a shared recurrent correction of both arms and grippers. Each refill generates and enqueues 50 commands. The policy uses three official cameras, preserves complete-hand ACT fallback, and makes no external inference calls. Qwen is used offline for training targets and is absent from the deployed model.
 
-**Release status:** public code is prepared; the checkpoint repository has been uploaded with exact byte verification; public availability is being checked. Protected confirmation completed at 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; this is disclosed as limited evidence; no statistical benchmark superiority is claimed. The installed-package native test remains pending; the verified fresh-environment task import-route overlay is included in setup. Clean CPython 3.11 offline installation and all-ten-task CPU loader/API checks passed. A ten-case development screen scored 6/10 against 3/10 for the plain official ACT50 control; that small screen does not establish a leaderboard improvement. The comparison includes the selected policy's Drawer conversion and terminal handling, as well as learned corrections.
+**Release status:** public code and all ten checkpoint paths are available at the pinned revision below. Protected confirmation completed at 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; this is disclosed as limited evidence; no statistical benchmark superiority is claimed. Fresh installed-package native validation remains pending after a simulator scene-initialization failure before policy construction; this failure produced no scored policy episode. The verified fresh-environment task import-route overlay is included in setup. Clean CPython 3.11 offline installation and all-ten-task CPU loader/API checks passed. A ten-case development screen scored 6/10 against 3/10 for the plain official ACT50 control; that small screen does not establish a leaderboard improvement. The comparison includes the selected policy's Drawer conversion and terminal handling, as well as learned corrections.
 
 ## Deployed architecture
 
@@ -23,7 +23,7 @@ flowchart TD
     C --> G["Learned reliability + arm limits<br/>per-hand acceptance"]
     B --> G
     G --> Q["50-command queue<br/>accepted correction or original complete hand"]
-    Q --> E["Official simulator<br/>10 commands per callback"]
+    Q --> E["Official simulator<br/>50 commands per callback"]
     T["Offline Qwen + learned-goal teacher targets"] -. training only .-> S
 ```
 
@@ -54,19 +54,24 @@ The artifact is about 9.01GB, including about 2.08GB of model assets. Allow at l
 
 ## Setup and evaluate
 
-Setup defaults to the exact uploaded 40-character revision below. Checkpoint anonymous access and installed native evaluation are being validated.
+Setup defaults to the exact uploaded 40-character revision below. All ten checkpoint paths have passed anonymous access checks. Use a short ordinary absolute installation path, such as `/tmp/rscp-policy`, for the native simulator. Full native validation of this installation path remains pending.
 
 ```bash
-bash setup.sh --revision a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8
+bash setup.sh --root /tmp/rscp-policy \
+  --revision a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8
+export ROBOSYN_STUDENT50_PACKAGE_ROOT=/tmp/rscp-policy
+export PYTHON_BIN=/tmp/rscp-policy/.venvs/sim/bin/python
 bash policy/compact_current_ACT_student50_release_v1/eval.sh \
   --task click_bell --seed 123 --episodes 20 --output /tmp/robosyn-bell-run
 ```
 
-Setup downloads the SHA-bound immutable package. Forty-five archived Git-LFS pointer-text fixtures are transported as pinned base64 JSON and restored to their exact original bytes before verification; no pointed-to datasets or test artifacts are downloaded. It then uses the pinned offline CPython 3.11 install recipe. It verifies every file, creates `artifact/.venvs/sim`, and validates the installed versions. It then installs two relocatable source-pinned routing files (1254 bytes) so the archived official nested task modules resolve in a fresh interpreter, and imports all ten tasks without creating worlds or models. `PYTHON311` may select the installed CPython 3.11 executable. A failed/incomplete existing installation must be inspected before another install; setup never substitutes a different dependency lock.
+Setup downloads the SHA-bound immutable package. Forty-five archived Git-LFS pointer-text fixtures are transported as pinned base64 JSON and restored to their exact original bytes before verification; no pointed-to datasets or test artifacts are downloaded. It then uses the pinned offline CPython 3.11 install recipe. It verifies every file, creates `<installation-root>/.venvs/sim`, and validates the installed versions. It then installs two relocatable source-pinned routing files (1254 bytes) so the archived official nested task modules resolve in a fresh interpreter, and imports all ten tasks without creating worlds or models. `PYTHON311` may select the installed CPython 3.11 executable. A failed/incomplete existing installation must be inspected before another install; setup never substitutes a different dependency lock.
+
+Keep the installation root short and ordinary: do not replace it with a symlink into a deep checkout. The simulator loads task assets and native libraries from installed absolute paths. CPU configuration and module checks passed for a complete byte-identical package and environment under a short root; that check does not establish a completed native rollout. `/tmp` may be cleared by a reboot, so a persistent short root such as `/opt/rscp-policy` is also suitable when writable.
 
 For each new evaluation, pass the organizer's generator seed, episode count and a fresh output directory. A local metadata binder derives the installed paths automatically after full byte verification. It requires no team token, root session, or manual approval. The team token is used only in the official submission portal. The actor and action code remain unchanged. Byte verification adds constructor startup time; it is outside steady inference.
 
-The shell invokes the exact submitted `deploy_policy.yml` through the unchanged official evaluator and imports this repository's `deploy_policy.py` four hooks. The command preserves the official full task horizon. The organizer can also import `policy.compact_current_ACT_student50_release_v1.deploy_policy` and pass the official task arguments to the four hooks; `ROBOSYN_STUDENT50_PACKAGE_ROOT` selects the downloaded artifact directory. The actor maintains its own 50-command queue. Its SDK callback cadence is 10 commands; that does not shorten the executed 50-command refill.
+The shell invokes the exact submitted `deploy_policy.yml` through the unchanged official evaluator and imports this repository's `deploy_policy.py` four hooks. The command preserves the official full task horizon. The organizer can also import `policy.compact_current_ACT_student50_release_v1.deploy_policy` and pass the official task arguments to the four hooks; `ROBOSYN_STUDENT50_PACKAGE_ROOT` selects the downloaded artifact directory. The actor maintains its own 50-command queue. The deployed compact actor sets `model.act_step=50` and returns 50 commands per SDK callback; its refill generates and executes 50 commands. The plain official ACT control uses the SDK `--act_step 10` argument. This is a complete-method comparison, not a correction-only ablation.
 
 ## Checkpoints and all-ten-task commands
 
