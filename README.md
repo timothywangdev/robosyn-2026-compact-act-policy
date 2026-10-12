@@ -2,7 +2,7 @@
 
 This repository contains the selected `distill_visual` policy and its all-ten-task deployment interface. A learned mapper uses the current feature maps from the same ACT image-backbone pass, plus current joint positions, to condition a shared recurrent correction of both arms and grippers. Each refill generates and enqueues 50 commands. The policy uses three official cameras, preserves complete-hand ACT fallback, and makes no external inference calls. Qwen is used offline for training targets and is absent from the deployed model.
 
-**Release status:** public code is prepared; the checkpoint repository is being staged privately. A protected confirmation evaluation and the installed-package native test remain pending. Clean CPython 3.11 offline installation and all-ten-task CPU loader/API checks passed. A ten-case development screen scored 6/10 against 3/10 for the plain official ACT50 control; that small screen does not establish a leaderboard improvement. The comparison includes the selected policy's Drawer conversion and terminal handling, as well as learned corrections.
+**Release status:** public code is prepared; the checkpoint repository is being staged privately. Protected confirmation completed at 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; no submission qualification or benchmark superiority is claimed. The installed-package native test remains pending; a fresh-environment task-module import route is being repaired. Clean CPython 3.11 offline installation and all-ten-task CPU loader/API checks passed. A ten-case development screen scored 6/10 against 3/10 for the plain official ACT50 control; that small screen does not establish a leaderboard improvement. The comparison includes the selected policy's Drawer conversion and terminal handling, as well as learned corrections.
 
 ## Required files and environment
 
@@ -26,7 +26,7 @@ bash policy/compact_current_ACT_student50_release_v1/eval.sh \
   --task click_bell --seed 123 --episodes 20 --output /tmp/robosyn-bell-run
 ```
 
-Setup downloads only the SHA-bound immutable package and uses the pinned offline CPython 3.11 install recipe. It verifies every file, creates `artifact/.venvs/sim`, and validates the installed versions. `PYTHON311` may select the installed CPython 3.11 executable. A failed/incomplete existing installation must be inspected before another install; setup never substitutes a different dependency lock.
+Setup downloads the SHA-bound immutable package. Forty-five archived Git-LFS pointer-text fixtures are transported as pinned base64 JSON and restored to their exact original bytes before verification; no pointed-to datasets or test artifacts are downloaded. It then uses the pinned offline CPython 3.11 install recipe. It verifies every file, creates `artifact/.venvs/sim`, and validates the installed versions. `PYTHON311` may select the installed CPython 3.11 executable. A failed/incomplete existing installation must be inspected before another install; setup never substitutes a different dependency lock.
 
 For each new evaluation, pass the organizer's generator seed, episode count and a fresh output directory. A local metadata binder derives the installed paths automatically after full byte verification. It requires no team token, root session, or manual approval. The team token is used only in the official submission portal. The actor and action code remain unchanged. Byte verification adds constructor startup time; it is outside steady inference.
 
@@ -36,18 +36,18 @@ The command preserves the official full task horizon. The organizer can also imp
 
 All tasks share `models/current-student/distill_visual.pt` and `models/frozen-coupled-role/coupled-all14.safetensors`. Each task additionally loads its own released ACT checkpoint. The full machine-readable mapping is in [task-checkpoints.json](task-checkpoints.json). The selected artifact manifest SHA256 is `191e3a69625175b96c685304e19d5362522e16338943cd6c3065448cabb89515`.
 
-| Task | ACT checkpoint at the pinned HF revision | Horizon |
-|---|---|---:|
-| click_bell | [models/act/click_bell](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/click_bell) | 361 |
-| drawer_open_place | [models/act/drawer_open_place](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/drawer_open_place) | 900 |
-| handle_basket | [models/act/handle_basket](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/handle_basket) | 500 |
-| item_assembly | [models/act/item_assembly](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/item_assembly) | 500 |
-| items_handover | [models/act/items_handover](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/items_handover) | 350 |
-| manipulate_pipette | [models/act/manipulate_pipette](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/manipulate_pipette) | 1000 |
-| mixer_operating | [models/act/mixer_operating](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/mixer_operating) | 500 |
-| sample_loading | [models/act/sample_loading](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/sample_loading) | 500 |
-| table_rearrangement | [models/act/table_rearrangement](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/table_rearrangement) | 361 |
-| water_pouring | [models/act/water_pouring](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/water_pouring) | 500 |
+| Task | ACT checkpoint at pinned HF revision | Horizon | Run command (organizer supplies seed/count) |
+|---|---|---:|---|
+| Table rearrangement (`table_rearrangement`) | [models/act/table_rearrangement](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/table_rearrangement) | 361 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task table_rearrangement --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-table_rearrangement` |
+| Click bell (`click_bell`) | [models/act/click_bell](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/click_bell) | 361 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task click_bell --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-click_bell` |
+| Water pouring (`water_pouring`) | [models/act/water_pouring](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/water_pouring) | 500 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task water_pouring --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-water_pouring` |
+| Handle basket (`handle_basket`) | [models/act/handle_basket](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/handle_basket) | 500 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task handle_basket --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-handle_basket` |
+| Items handover (`items_handover`) | [models/act/items_handover](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/items_handover) | 350 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task items_handover --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-items_handover` |
+| Drawer open place (`drawer_open_place`) | [models/act/drawer_open_place](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/drawer_open_place) | 900 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task drawer_open_place --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-drawer_open_place` |
+| Mixer operating (`mixer_operating`) | [models/act/mixer_operating](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/mixer_operating) | 500 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task mixer_operating --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-mixer_operating` |
+| Item assembly (`item_assembly`) | [models/act/item_assembly](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/item_assembly) | 500 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task item_assembly --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-item_assembly` |
+| Manipulate pipette (`manipulate_pipette`) | [models/act/manipulate_pipette](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/manipulate_pipette) | 1000 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task manipulate_pipette --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-manipulate_pipette` |
+| Sample loading (`sample_loading`) | [models/act/sample_loading](https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/HF_REVISION/models/act/sample_loading) | 500 | `bash policy/compact_current_ACT_student50_release_v1/eval.sh --task sample_loading --seed ORGANIZER_SEED --episodes ORGANIZER_COUNT --output /tmp/robosyn-sample_loading` |
 
 Use the same command above with `--task` set to each table row. Seeds and episode counts are supplied by the organizer, not selected by the policy.
 
