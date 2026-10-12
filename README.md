@@ -2,7 +2,30 @@
 
 This repository contains the selected `distill_visual` policy and its all-ten-task deployment interface. A learned mapper uses the current feature maps from the same ACT image-backbone pass, plus current joint positions, to condition a shared recurrent correction of both arms and grippers. Each refill generates and enqueues 50 commands. The policy uses three official cameras, preserves complete-hand ACT fallback, and makes no external inference calls. Qwen is used offline for training targets and is absent from the deployed model.
 
-**Release status:** public code and all ten checkpoint paths are available at the pinned revision below. Protected confirmation completed at 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; this is disclosed as limited evidence; no statistical benchmark superiority is claimed. The fresh installed package completed one Bell episode through the submitted shell, YAML and four hooks from a short ordinary installation root: evaluator and native exits were zero, with task score 0/1 at the full 361-action horizon. This validates one complete runtime smoke; it does not show task success. Fresh installed-package native validation across all ten tasks remains pending. Earlier deep-path scene-initialization failures occurred before policy construction and produced no scored policy episode. The verified fresh-environment task import-route overlay is included in setup. Clean CPython 3.11 offline installation and all-ten-task CPU loader/API checks passed. A ten-case development screen scored 6/10 against 3/10 for the plain official ACT50 control; that small screen does not establish a leaderboard improvement. The comparison includes the selected policy's Drawer conversion and terminal handling, as well as learned corrections.
+**Release status:** public code and all ten checkpoint paths are available at the pinned revision below. The fresh installed short-root package completed all ten official native task evaluations, one episode per task, scoring 4/10. Protected confirmation remains 17/30 versus 13/30 for plain official ACT50: five candidate-only wins and one control-only win, one-sided exact McNemar p = 0.109375. This missed the preset p <= 0.10 criterion; no statistical benchmark superiority is claimed. Clean CPython 3.11 offline installation, all-ten-task CPU loader/API checks and the short-root Bell runtime smoke passed. Earlier deep-path scene-initialization failures were unavailable pre-policy episodes and remain separate. The fresh result is an integration screen with one case per task, not the organizer's 100-case benchmark. The selected policy comparison includes Drawer conversion, terminal handling and callback cadence as well as learned corrections. The new predeclared gen28+gen29 60-pair confirmation remains pending and is not pooled with the failed protected confirmation.
+
+## Fresh installed all-ten-task integration screen
+
+One current short-root episode per task; accepted seed/candidate/attempt/expert metadata match the earlier gen24 screen. Exact initial RGB, object-state and command equality are not established. Historical organizer 100-case percentages are a different protocol and are not inferred from these results.
+
+| Task | Fresh installed compact | Earlier compact50 gen24 | Plain ACT50 gen24 | Official horizon |
+|---|---:|---:|---:|---:|
+| `table_rearrangement` | 1/1 (127 actions) | 1/1 | 1/1 | 361 |
+| `click_bell` | 0/1 (361 actions) | 0/1 | 0/1 | 361 |
+| `water_pouring` | 0/1 (500 actions) | 1/1 | 0/1 | 500 |
+| `handle_basket` | 0/1 (500 actions) | 1/1 | 1/1 | 500 |
+| `items_handover` | 1/1 (314 actions) | 1/1 | 0/1 | 350 |
+| `drawer_open_place` | 1/1 (375 actions) | 1/1 | 0/1 | 900 |
+| `mixer_operating` | 0/1 (500 actions) | 0/1 | 0/1 | 500 |
+| `item_assembly` | 0/1 (500 actions) | 0/1 | 0/1 | 500 |
+| `manipulate_pipette` | 1/1 (236 actions) | 1/1 | 1/1 | 1000 |
+| `sample_loading` | 0/1 (500 actions) | 0/1 | 0/1 | 500 |
+
+Fresh score: **4/10**. Earlier selected compact50: **6/10**; plain ACT50: **3/10**. These same-scene identities are useful comparison metadata, not a guarantee of exact replay.
+
+Basket regression is preserved: the earlier compact rollout succeeds at 331 actions; the fresh rollout times out at 500. Saved frames show both bringing the bottle into the basket, then the fresh rollout carrying it back out during withdrawal and leaving it on the table. Initial camera buffers and the first seven command hashes differ; the opening/contact trajectory was not saved. Both use eager correction. The precise cause remains unproved, and this case is not relabeled as an unavailable episode.
+
+Water pouring also regresses from the earlier compact result of 1/1 to a fresh result of 0/1 at the full 500-action timeout. These two observed regressions reduce the fresh screen from the earlier 6/10 to 4/10. A specific cause for Water's change has not been established. The earlier plain ACT50 score of 3/10 is retained as reference, not a new contemporaneous baseline evaluation or proof of a public benchmark gain.
 
 ## Deployed architecture
 
@@ -54,7 +77,7 @@ The artifact is about 9.01GB, including about 2.08GB of model assets. Allow at l
 
 ## Setup and evaluate
 
-Setup defaults to the exact uploaded 40-character revision below. All ten checkpoint paths have passed anonymous access checks. Use a short ordinary absolute installation path, such as `/tmp/rscp-policy`, for the native simulator. A byte-identical installed package and environment under a short ordinary root completed the Bell runtime smoke described above; full all-ten-task native validation remains pending.
+Setup defaults to the exact uploaded 40-character revision below. All ten checkpoint paths have passed anonymous access checks. Use a short ordinary absolute installation path, such as `/tmp/rscp-policy`, for the native simulator. A byte-identical installed package and environment under a short ordinary root completed the Bell runtime smoke described above; all ten fresh native tasks completed as detailed above; direct RTX 5090 qualification remains pending.
 
 ```bash
 bash setup.sh --root /tmp/rscp-policy \
@@ -67,7 +90,7 @@ bash policy/compact_current_ACT_student50_release_v1/eval.sh \
 
 Setup downloads the SHA-bound immutable package. Forty-five archived Git-LFS pointer-text fixtures are transported as pinned base64 JSON and restored to their exact original bytes before verification; no pointed-to datasets or test artifacts are downloaded. It then uses the pinned offline CPython 3.11 install recipe. It verifies every file, creates `<installation-root>/.venvs/sim`, and validates the installed versions. It then installs two relocatable source-pinned routing files (1254 bytes) so the archived official nested task modules resolve in a fresh interpreter, and imports all ten tasks without creating worlds or models. `PYTHON311` may select the installed CPython 3.11 executable. A failed/incomplete existing installation must be inspected before another install; setup never substitutes a different dependency lock.
 
-Keep the installation root short and ordinary: do not replace it with a symlink into a deep checkout. The simulator loads task assets and native libraries from installed absolute paths. CPU configuration and module checks passed for a complete byte-identical package and environment under a short root. A subsequent Bell rollout completed with native/evaluator exits zero and task score 0/1; the other nine task rollouts in this fresh installed environment remain unqualified. `/tmp` may be cleared by a reboot, so a persistent short root such as `/opt/rscp-policy` is also suitable when writable.
+Keep the installation root short and ordinary: do not replace it with a symlink into a deep checkout. The simulator loads task assets and native libraries from installed absolute paths. CPU configuration and module checks passed for a complete byte-identical package and environment under a short root. A subsequent Bell rollout completed with native/evaluator exits zero and task score 0/1; all ten fresh native tasks now have completed official metrics, with one episode per task as detailed above. `/tmp` may be cleared by a reboot, so a persistent short root such as `/opt/rscp-policy` is also suitable when writable.
 
 For each new evaluation, pass the organizer's generator seed, episode count and a fresh output directory. A local metadata binder derives the installed paths automatically after full byte verification. It requires no team token, root session, or manual approval. The team token is used only in the official submission portal. The actor and action code remain unchanged. Byte verification adds constructor startup time; it is outside steady inference.
 
