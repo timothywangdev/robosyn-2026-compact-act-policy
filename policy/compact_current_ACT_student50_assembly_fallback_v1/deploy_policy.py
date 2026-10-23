@@ -11,6 +11,9 @@ from experiments.coupled_act_student50_assembly_fallback import policy as _polic
 
 
 def get_model(args):
+    if args.get('task_name') == 'item_assembly':
+        from .constraint_lifetime import install
+        install()
     default = os.environ.get('ROBOSYN_STUDENT50_PACKAGE_ROOT', str(_RUNTIME / 'artifact'))
     root = Path(args.get('compact_student_submission_root', default)).resolve(strict=True)
     actor_source = root / 'upstream/lerobot-sim/src'

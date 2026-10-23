@@ -66,6 +66,7 @@ def main():
             paths.append(env['PYTHONPATH'])
         env.update(PYTHONPATH=os.pathsep.join(paths),
                    ROBOSYN_STUDENT50_PACKAGE_ROOT=str(root),
+                   EMBODICHAIN_SIM_EXIT_PROCESS='0',
                    PYTHONDONTWRITEBYTECODE='1', PYTHONUNBUFFERED='1',
                    HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1')
         cwd = official
