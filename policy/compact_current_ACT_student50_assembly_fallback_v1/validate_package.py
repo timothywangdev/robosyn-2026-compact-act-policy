@@ -116,6 +116,7 @@ root=Path(sys.argv[1]);sys.path.insert(0,str(root))
 hooks=importlib.import_module('policy.'+sys.argv[2]+'.deploy_policy')
 fixture=root/'fixture-artifact';actor=fixture/'upstream/lerobot-sim/src';actor.mkdir(parents=True)
 hooks._policy.get_model=lambda value:value
+hooks._bind_torch_cache=lambda value:None  # This fixture tests actor-source routing only.
 args=dict(task_name='click_bell',compact_student_submission_root=str(fixture))
 received=hooks.get_model(args)
 assert received==args and received is not args and sys.path[0]==str(actor)

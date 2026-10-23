@@ -17,6 +17,8 @@ The default artifact root is `runtime/artifact/`; an explicitly short path such 
 
 Assembly installs the disclosed, hash-guarded [constraint lifetime compatibility repair](CONSTRAINT_LIFETIME.md) for the documented SDK v0.2.4.post1 / DexSim 0.4.3 build. It releases borrowed Python constraint wrappers before their native owners and removes active constraints before scene shutdown. It changes cleanup order in this process; SDK files, native binaries, model weights, actions, physics settings, horizons and scoring remain unchanged. Unrecognized SDK/native builds fail explicitly. The organizer launcher also sets `EMBODICHAIN_SIM_EXIT_PROCESS=0` so native shutdown returns to the official metric writer. Archived standalone execution is historical reproduction and has not been qualified with this repair.
 
+The organizer launcher and direct `get_model` hook bind Torch's initializer cache to the verified artifact's `cache/torch/`. The bundled ResNet18 initializer is size/SHA-checked before model construction. This avoids reliance on an existing home-directory cache or a new network download; initializer and final checkpoint bytes are unchanged.
+
 To verify a policy-only prepared copy, run:
 
 ```bash
