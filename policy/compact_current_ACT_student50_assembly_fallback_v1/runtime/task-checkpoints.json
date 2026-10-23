@@ -1,0 +1,212 @@
+{
+  "table_rearrangement": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/table_rearrangement",
+    "ACT_subdirectory": "models/act/table_rearrangement",
+    "template": "templates/student-table_rearrangement.json",
+    "official_horizon": 361,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Table rearrangement",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "table_rearrangement",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-table_rearrangement"
+    ]
+  },
+  "click_bell": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/click_bell",
+    "ACT_subdirectory": "models/act/click_bell",
+    "template": "templates/student-click_bell.json",
+    "official_horizon": 361,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Click bell",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "click_bell",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-click_bell"
+    ]
+  },
+  "water_pouring": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/water_pouring",
+    "ACT_subdirectory": "models/act/water_pouring",
+    "template": "templates/student-water_pouring.json",
+    "official_horizon": 500,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Water pouring",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "water_pouring",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-water_pouring"
+    ]
+  },
+  "handle_basket": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/handle_basket",
+    "ACT_subdirectory": "models/act/handle_basket",
+    "template": "templates/student-handle_basket.json",
+    "official_horizon": 500,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Handle basket",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "handle_basket",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-handle_basket"
+    ]
+  },
+  "items_handover": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/items_handover",
+    "ACT_subdirectory": "models/act/items_handover",
+    "template": "templates/student-items_handover.json",
+    "official_horizon": 350,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Items handover",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "items_handover",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-items_handover"
+    ]
+  },
+  "drawer_open_place": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/drawer_open_place",
+    "ACT_subdirectory": "models/act/drawer_open_place",
+    "template": "templates/student-drawer_open_place.json",
+    "official_horizon": 900,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Drawer open place",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "drawer_open_place",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-drawer_open_place"
+    ]
+  },
+  "mixer_operating": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/mixer_operating",
+    "ACT_subdirectory": "models/act/mixer_operating",
+    "template": "templates/student-mixer_operating.json",
+    "official_horizon": 500,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Mixer operating",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "mixer_operating",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-mixer_operating"
+    ]
+  },
+  "item_assembly": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/item_assembly",
+    "ACT_subdirectory": "models/act/item_assembly",
+    "template": "templates/student-item_assembly.json",
+    "official_horizon": 500,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Item assembly",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "item_assembly",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-item_assembly"
+    ]
+  },
+  "manipulate_pipette": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/manipulate_pipette",
+    "ACT_subdirectory": "models/act/manipulate_pipette",
+    "template": "templates/student-manipulate_pipette.json",
+    "official_horizon": 1000,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Manipulate pipette",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "manipulate_pipette",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-manipulate_pipette"
+    ]
+  },
+  "sample_loading": {
+    "HF_URL": "https://huggingface.co/0x00ff00ff/robosyn-2026-compact-act-policy/tree/a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8/models/act/sample_loading",
+    "ACT_subdirectory": "models/act/sample_loading",
+    "template": "templates/student-sample_loading.json",
+    "official_horizon": 500,
+    "student": "models/current-student/distill_visual.pt",
+    "motor": "models/frozen-coupled-role/coupled-all14.safetensors",
+    "task_label": "Sample loading",
+    "run_command": [
+      "bash",
+      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "--task",
+      "sample_loading",
+      "--seed",
+      "ORGANIZER_SEED",
+      "--episodes",
+      "ORGANIZER_COUNT",
+      "--output",
+      "/tmp/robosyn-sample_loading"
+    ]
+  }
+}

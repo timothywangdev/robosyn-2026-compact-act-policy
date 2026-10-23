@@ -1,5 +1,28 @@
 # Compact ACT policy with conservative Assembly fallback for RoboSyn 2026
 
+## Evaluation packaging correction — October 22, 2026
+
+The submitted policy is **`compact_current_ACT_student50_assembly_fallback_v1`**. Copy the complete `policy/compact_current_ACT_student50_assembly_fallback_v1/` directory into the organizer's official evaluation checkout. Every participant runtime dependency, the local setup script, and the byte-preserving source inventory now live inside that directory; no repository-root `experiments/`, `release/`, or `setup.sh` is required after preparation. It is the only immediate policy directory in this correction, avoiding selection of a historical adapter.
+
+From the **official evaluation checkout root**, use its prepared Python environment:
+
+```bash
+PYTHON_BIN=/path/to/official/python bash policy/compact_current_ACT_student50_assembly_fallback_v1/setup.sh \
+  --download-only --root /tmp/rscp-policy \
+  --revision a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8
+export ROBOSYN_STUDENT50_PACKAGE_ROOT=/tmp/rscp-policy
+export PYTHON_BIN=/path/to/official/python
+bash policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh \
+  --task click_bell --seed 123 --episodes 20 --output /tmp/robosyn-bell-run
+```
+
+The artifact downloader requires CPython 3.11; set `PYTHON311=/path/to/python3.11` separately if the organizer's evaluation interpreter differs. `--download-only` verifies the unchanged checkpoint/source/assets package and leaves the organizer's installed dependencies intact. The evaluator is `scripts/eval_policy.py` in the official checkout, executed by `PYTHON_BIN`; an alternative official location can be supplied with `ROBOSYN_EVALUATOR_ROOT` or `--evaluator-root`. No archived interpreter or simulator bootstrap is substituted in this mode. The exact pinned LeRobot ACT implementation is loaded from the downloaded artifact's `upstream/lerobot-sim/src` to preserve the submitted actor source; installed dependencies still come from the organizer environment. A preexisting incompatible imported ACT module is rejected explicitly. The policy accepts the documented named task, seed, episode-count, and output arguments.
+
+This correction changes packaging and launch paths. All 279 files copied from code commit `91fa5837ef6db239046167e1a5331bf947ec7521` retain their exact bytes. Two additional original metadata files supply a missing task-order import used by the runtime cache helper; they do not alter an actor. The scientific adapter, nine student routes, Assembly ACT-only route, shared trained checkpoints, ten task checkpoints, and immutable HF revision are unchanged. The packaging checks do not constitute a new native rollout or a performance claim.
+
+For a separate standalone reproduction, run the policy-local setup without `--download-only` to create the frozen artifact environment, then pass `--standalone` to `eval.sh`. Only this explicit mode uses the archived evaluator and installed artifact environment.
+
+
 This is a separate adaptive candidate. For `item_assembly`, it uses the exact pinned released official ACT checkpoint directly, with its raw 50-command FIFO and a ten-command SDK callback. It constructs no visual student or recurrent correction for that task, applies no action transformation, and delegates evaluation and reset to the original official ACT hooks. The other nine tasks retain the same trained current-feature visual student, shared coupled motor, task ACT checkpoints and per-hand fallback as the earlier release. Qwen remains an offline teacher; no language/subtask planner or external inference service runs at deployment.
 
 **Candidate integration status: COMPLETE — 3/10 successes.** All ten new gen31 episodes have genuine native/evaluator exits zero and natural recorded drains, one episode per task at its official full horizon. This confirms the changed adapter runs across all ten tasks; a ten-case screen does not establish organizer leaderboard performance, statistical superiority, or architectural novelty. The separate gen30 Assembly integration test completed six episodes (three per route): candidate 2/3 versus plain ACT 2/3. All three accepted scene/protocol pairs aligned. Both branches use the same released ACT weights, so this tests integration/control agreement, not learned correction efficacy or all-ten superiority. The all-ten immutable HF checkpoints remain at revision `a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8`. Publication and submission are separate ROOT actions.
@@ -126,25 +149,25 @@ The artifact is about 9.01GB, including about 2.08GB of model assets. Allow at l
 Setup defaults to the exact uploaded 40-character revision below. All ten checkpoint paths have passed anonymous access checks. Use a short ordinary absolute installation path, such as `/tmp/rscp-policy`, for the native simulator. A byte-identical installed package and environment under a short ordinary root completed the Bell runtime smoke described above; all ten fresh native tasks completed as detailed above; direct RTX 5090 qualification remains pending.
 
 ```bash
-bash setup.sh --root /tmp/rscp-policy \
+bash policy/compact_current_ACT_student50_assembly_fallback_v1/setup.sh --download-only --root /tmp/rscp-policy \
   --revision a164024eacdfb66ffdc3a2e3bbaad2bd5d5f46f8
 export ROBOSYN_STUDENT50_PACKAGE_ROOT=/tmp/rscp-policy
-export PYTHON_BIN=/tmp/rscp-policy/.venvs/sim/bin/python
+export PYTHON_BIN=/path/to/official/python
 bash policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh \
   --task click_bell --seed 123 --episodes 20 --output /tmp/robosyn-bell-run
 ```
 
-Setup downloads the SHA-bound immutable package. Forty-five archived Git-LFS pointer-text fixtures are transported as pinned base64 JSON and restored to their exact original bytes before verification; no pointed-to datasets or test artifacts are downloaded. It then uses the pinned offline CPython 3.11 install recipe. It verifies every file, creates `<installation-root>/.venvs/sim`, and validates the installed versions. It then installs two relocatable source-pinned routing files (1254 bytes) so the archived official nested task modules resolve in a fresh interpreter, and imports all ten tasks without creating worlds or models. `PYTHON311` may select the installed CPython 3.11 executable. A failed/incomplete existing installation must be inspected before another install; setup never substitutes a different dependency lock.
+Download-only setup downloads and verifies the SHA-bound immutable package while retaining the organizer's existing evaluation environment. Forty-five archived Git-LFS pointer-text fixtures are transported as pinned base64 JSON and restored to their exact original bytes before verification; no pointed-to datasets or test artifacts are downloaded. `PYTHON311` selects the CPython 3.11 downloader. For standalone historical reproduction only, omit `--download-only`: this invokes the pinned offline install recipe, creates `<installation-root>/.venvs/sim`, validates its versions, and installs the archived task-import routing repair. Use that interpreter with the explicit `--standalone` launch mode. A failed/incomplete installation must be inspected before another install; setup never substitutes a different dependency lock.
 
 Keep the installation root short and ordinary: do not replace it with a symlink into a deep checkout. The simulator loads task assets and native libraries from installed absolute paths. CPU configuration and module checks passed for a complete byte-identical package and environment under a short root. The original policy completed its Bell rollout and all-ten fresh native screen described above. That integration evidence is reference only for the changed Assembly-fallback candidate; its separate gen31 native proofs are complete as described above. `/tmp` may be cleared by a reboot, so a persistent short root such as `/opt/rscp-policy` is also suitable when writable.
 
 For each new evaluation, pass the organizer's generator seed, episode count and a fresh output directory. A local metadata binder derives the installed paths automatically after full byte verification. It requires no team token, root session, or manual approval. The team token is used only in the official submission portal. The actor and action code remain unchanged. Byte verification adds constructor startup time; it is outside steady inference.
 
-The shell invokes the exact submitted `deploy_policy.yml` through the unchanged official evaluator and imports this repository's `deploy_policy.py` four hooks. The command preserves the official full task horizon. The organizer can also import `policy.compact_current_ACT_student50_assembly_fallback_v1.deploy_policy` and pass the official task arguments to the four hooks; `ROBOSYN_STUDENT50_PACKAGE_ROOT` selects the downloaded artifact directory. For the nine student-routed tasks, the actor maintains its own 50-command queue, sets `model.act_step=50` and returns 50 commands per SDK callback. For Assembly, the exact released official ACT FIFO generates and executes 50 commands across ten-command SDK callbacks. The task-specific shell passes --act_step10 for Assembly and --act_step50 otherwise. This is a complete-method comparison, not a correction-only ablation.
+In the official evaluation checkout, the shell invokes the retained policy-local `deploy_policy.yml` through the organizer's `scripts/eval_policy.py` and imports the retained policy-local `deploy_policy.py` four hooks. The command preserves the official full task horizon. The organizer can also import `policy.compact_current_ACT_student50_assembly_fallback_v1.deploy_policy` and pass the official task arguments to the four hooks; `ROBOSYN_STUDENT50_PACKAGE_ROOT` selects the downloaded artifact directory. For the nine student-routed tasks, the actor maintains its own 50-command queue, sets `model.act_step=50` and returns 50 commands per SDK callback. For Assembly, the exact released official ACT FIFO generates and executes 50 commands across ten-command SDK callbacks. The task-specific shell passes --act_step10 for Assembly and --act_step50 otherwise. This is a complete-method comparison, not a correction-only ablation.
 
 ## Checkpoints and all-ten-task commands
 
-The nine student-routed tasks share `models/current-student/distill_visual.pt` and `models/frozen-coupled-role/coupled-all14.safetensors`. Assembly loads only its released ACT checkpoint; it does not instantiate these two shared models. Every task loads the same released ACT checkpoint files as the prior artifact. The immutable checkpoint paths and horizons are in [task-checkpoints.json](task-checkpoints.json). Its historical `run_command` entries refer to the earlier adapter; this changed candidate must use the new Assembly-fallback commands shown below. The selected artifact manifest SHA256 is `191e3a69625175b96c685304e19d5362522e16338943cd6c3065448cabb89515`.
+The nine student-routed tasks share `models/current-student/distill_visual.pt` and `models/frozen-coupled-role/coupled-all14.safetensors`. Assembly loads only its released ACT checkpoint; it does not instantiate these two shared models. Every task loads the same released ACT checkpoint files as the prior artifact. The immutable checkpoint paths and horizons are in [task-checkpoints.json](task-checkpoints.json). Its `run_command` entries use the Assembly-fallback adapter shown below. The selected artifact manifest SHA256 is `191e3a69625175b96c685304e19d5362522e16338943cd6c3065448cabb89515`.
 
 | Task | ACT checkpoint at pinned HF revision | Horizon | Run command (organizer supplies seed/count) |
 |---|---|---:|---|

@@ -9,7 +9,7 @@
     "task_label": "Table rearrangement",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "table_rearrangement",
       "--seed",
@@ -30,7 +30,7 @@
     "task_label": "Click bell",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "click_bell",
       "--seed",
@@ -51,7 +51,7 @@
     "task_label": "Water pouring",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "water_pouring",
       "--seed",
@@ -72,7 +72,7 @@
     "task_label": "Handle basket",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "handle_basket",
       "--seed",
@@ -93,7 +93,7 @@
     "task_label": "Items handover",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "items_handover",
       "--seed",
@@ -114,7 +114,7 @@
     "task_label": "Drawer open place",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "drawer_open_place",
       "--seed",
@@ -135,7 +135,7 @@
     "task_label": "Mixer operating",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "mixer_operating",
       "--seed",
@@ -156,7 +156,7 @@
     "task_label": "Item assembly",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "item_assembly",
       "--seed",
@@ -177,7 +177,7 @@
     "task_label": "Manipulate pipette",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "manipulate_pipette",
       "--seed",
@@ -198,7 +198,7 @@
     "task_label": "Sample loading",
     "run_command": [
       "bash",
-      "policy/compact_current_ACT_student50_release_v1/eval.sh",
+      "policy/compact_current_ACT_student50_assembly_fallback_v1/eval.sh",
       "--task",
       "sample_loading",
       "--seed",
